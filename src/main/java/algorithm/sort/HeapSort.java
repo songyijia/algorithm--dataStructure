@@ -1,6 +1,68 @@
 package algorithm.sort;
 
 public class HeapSort {
+    //堆排序额外空间复杂度O(1)
+    public static void heapSort(int[] arr){
+        if (arr == null || arr.length < 2){
+            return;
+        }
+        //O(N*logN)
+        for (int i = 0; i < arr.length; i++) {
+            heapInsert(arr,i);
+        }
+        //到这里已经是大根堆
+
+        //优化方案：倒着使小节点成为大根堆
+//        for (int i = arr.length-1; i >= 0 ; i--) {
+//            heapify(arr,i,arr.length);
+//        }
+
+
+        int heapSize = arr.length;
+        //一直把最大值放最后面，
+        swap(arr,0,--heapSize);
+        //O(N*logN)
+        while (heapSize > 0){ //O(N)
+            heapify(arr,0,heapSize);//O(logN)
+            swap(arr,0,--heapSize); //O(1)
+        }
+        //完成后，数组递增
+    }
+
+    private static void swap(int[] arr, int a, int b) {
+        int tmp = arr[b];
+        arr[b] = arr[a];
+        arr[a] = tmp;
+    }
+
+    //下沉
+    private static void heapify(int[] arr, int i, int heapSize) {
+        int left = i*2+1;
+        while (left<heapSize){
+            int largest = left+1<heapSize && arr[left+1]>arr[left] ? left+1:left;
+            largest = arr[largest] > arr[i] ? largest:i;
+            if (largest == i){
+                break;
+            }
+            swap(arr,largest,i);
+            i = largest;
+            left = 2*i+1;
+        }
+
+    }
+
+    //上浮
+    private static void heapInsert(int[] arr, int i) {
+        while (arr[i] > arr[(i-1)/2]){
+            swap(arr,i,(i-1)/2);
+            i = (i-1)/2;
+        }
+
+    }
+
+    /**
+     * 堆结构
+     */
     static class MyHeap{
         int[] heap;
         int heapSize = 0;
