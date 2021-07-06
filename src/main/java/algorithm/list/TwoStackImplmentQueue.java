@@ -18,6 +18,9 @@ public class TwoStackImplmentQueue {
         return popStack.pop();
     }
 
+    /**
+     * push栈一直为空，一有新元素进去，便被搞去pop栈等出队
+     */
     private void pushToPop() {
         if (popStack.isEmpty()) { //pop栈为空时，倒数据过去
             while (!pushStack.isEmpty()) {

@@ -14,6 +14,10 @@ public class TwoQueueImplmentStack {
 //        pushToPop();
     }
 
+    /**
+     * 原有队列只留一个元素让它出队，其它元素进到另一新队来。
+     * @return
+     */
     public Object pop(){
         pushToPop();
         Object data = queue.remove();
