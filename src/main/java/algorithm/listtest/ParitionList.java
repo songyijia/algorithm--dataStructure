@@ -86,9 +86,17 @@ public class ParitionList {
             cur.next = null;
             cur = next;
         }
-        lt.next = eh;
-        et.next = bh;
-        return lh;
+//        lt.next = eh;
+//        et.next = bh;
+        // 小于区域的尾巴，连等于区域的头，等于区域的尾吧连大于区域的头
+        if (lt != null){
+            lt.next = eh;
+            et = et == null ? lt:et;//谁去连大于区域的头
+        }
+        if (et!=null){
+            et.next = lh;
+        }
+        return lh != null ? lh : (eh != null ? eh:lh);
     }
     public static void main(String[] args) {
         FastSlow.Node node1 = new FastSlow.Node(4);
