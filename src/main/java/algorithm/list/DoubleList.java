@@ -31,7 +31,7 @@ public class DoubleList<T> {
             head.pre = node;
             head = node;
         }
-        return node;
+        return head;
     }
     /**
      * 从头出队
@@ -63,7 +63,7 @@ public class DoubleList<T> {
             node.pre = tail;
             tail = node;
         }
-        return node;
+        return tail;
     }
     /**
      * 从尾部出队
@@ -77,8 +77,8 @@ public class DoubleList<T> {
             head = tail = null;
         }else {
             tail = tail.pre;
-            cur.next = null;
-            tail.pre = null;
+            cur.pre = null;
+            tail.next = null;
         }
         return cur;
     }
@@ -90,5 +90,31 @@ public class DoubleList<T> {
             cur = cur.next;
         }
         System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Node<Integer> node1 = new Node<>(1);
+        Node<Integer> node2 = new Node<>(2);
+        Node<Integer> node3 = new Node<>(3);
+        Node<Integer> node4 = new Node<>(4);
+        Node<Integer> node5 = new Node<>(5);
+        Node<Integer> node6 = new Node<>(6);
+        Node<Integer> node7 = new Node<>(7);
+        DoubleList<Integer> doubleList = new DoubleList<Integer>();
+        doubleList.addFromHead(1);
+        doubleList.printList();
+        doubleList.addFromHead(2);
+        doubleList.printList();
+        doubleList.addFromTail(3);
+        doubleList.printList();
+        doubleList.popFromHead();
+        doubleList.printList();
+        doubleList.addFromTail(4);
+        doubleList.addFromHead(5);
+        doubleList.printList();
+        doubleList.popFromTail();
+        doubleList.addFromHead(6);
+        doubleList.addFromTail(7);
+        doubleList.printList();
     }
 }

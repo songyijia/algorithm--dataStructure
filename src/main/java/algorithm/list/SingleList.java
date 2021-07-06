@@ -43,18 +43,18 @@ public class SingleList {
 
     /**
      * 反转双向链表
-     * @param a
+     * @param head
      * @return
      */
-    private static DoubleNode reserveList(DoubleNode a) {
+    private static DoubleNode reserveList(DoubleNode head) {
         DoubleNode pre = null;
         DoubleNode next = null;
-        while (a !=null){
-            next = a.next;
-            a.pre = next;
-            a.next = pre;
-            pre = a;
-            a = next;
+        while (head !=null){
+            next = head.next;
+            head.pre = next;
+            head.next = pre;
+            pre = head;
+            head = next;
         }
         return pre;
     }
