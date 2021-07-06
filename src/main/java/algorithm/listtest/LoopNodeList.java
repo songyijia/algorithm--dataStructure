@@ -56,6 +56,7 @@ public class LoopNodeList {
             n--;
             cur1 = cur1.next;
         }
+        //从相等长度开始数，到两个点相交为止
         while (cur1 != cur2){
             cur1 = cur1.next;
             cur2 = cur2.next;
@@ -66,6 +67,7 @@ public class LoopNodeList {
     public static CopyList.Node bothLoop(CopyList.Node head1, CopyList.Node loop1, CopyList.Node head2, CopyList.Node loop2){
         CopyList.Node cur1 = null,cur2 = null;
         if (loop1 == loop2){
+            //入环点相同，跟无环情况一样
             cur1 = head1;
             cur2 = head2;
             int n = 0;
@@ -92,6 +94,7 @@ public class LoopNodeList {
             }
             return cur1;
         } else {
+            //入环点不一样，则将一个环轮一边，找到是否与loop2相交
             cur1 = loop1.next;
             while (cur1 != loop1){
                 if (cur1 == loop2){
@@ -123,6 +126,7 @@ public class LoopNodeList {
         if (loop1 != null && loop2 != null){
             return bothLoop(head1,loop1,head2,loop2);
         }
+        //一个有环，一个无环，必不相交
         return null;
     }
 
