@@ -39,6 +39,16 @@ public class GetMinStack {
             return stackMin.peek();
         }
 
-
+        public static void main(String[] args) {
+            MyStack1 getMinStack = new MyStack1();
+            getMinStack.push(2);
+            getMinStack.push(5);
+            getMinStack.push(3);
+            getMinStack.push(1);
+            System.out.println(getMinStack.getmin());
+            getMinStack.pop();
+            getMinStack.push(3);
+            System.out.println(getMinStack.getmin());
+        }
     }
 }
