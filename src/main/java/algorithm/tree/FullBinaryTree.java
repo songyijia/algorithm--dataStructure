@@ -1,5 +1,7 @@
 package algorithm.tree;
 
+import java.util.LinkedList;
+
 /**
  * 判断树是否为满二叉树
  *  高h 的树 ，节点数为 2^(h-1)-1
@@ -12,6 +14,7 @@ public class FullBinaryTree {
         FullInfo all = process(head);
         return (1<<all.height) - 1 == all.nodes;
     }
+
 
     private static FullInfo process(RecuriseTravelBT.Node head) {
         if (head == null){
