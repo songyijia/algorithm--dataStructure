@@ -1,0 +1,158 @@
+在输入文件（/tmp/input.txt）中存储了数百个任意的文件/文件夹绝对路径，每个路径一行。
+请读入input文件内容，计算所有路径（含全部子路径）占用磁盘空间大小：
+    文件路径磁盘占用空间大小=该路径下所有文件的大小之和（含子路径下的文件），
+并按下述分类规则计算size，
+分类规则（每1024字节算一档）：
+0 A1
+1-1024 A2
+1025-2048 A3
+2049-3072 A4
+3073-4096 A5
+4097-5120 A6
+.....
+并统计size完全相同的路径出现次数num，
+最后按num+size从大到小的顺序排序输出到指定文件（/tmp/output.txt）；
+父子路径分别统计，例如/home下有子路径/home/doc，则/home和/home/doc分别计算size
+输入格式例：
+input.txt文件内容：
+"/home"
+"/bin"
+"/usr"
+"/var"
+……
+输出格式例：
+"A1 18"
+"A3 7"
+"A17 7"
+"A6  6"
+"A14  5"
+"A21  5"
+"A10 4"
+"A7 4"
+"A9 1"
+……
+要求：
+1、仅可使用标准JDK工具类
+2、必须要使用多线程实现
+3、统计速度越快越好
+4、限时60分钟内完成
+
+
+
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+
+public class Test2 {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        File file = new File("/tmp/input.txt");
+        FileInputStream fis = new FileInputStream(file);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader reader = new BufferedReader(isr);
+        String line = null;
+        while ((line = reader.readLine())!=null){
+                executorService.execute(new CountTask(line,executorService));
+            
+        }
+        
+    }
+
+    static class CountTask implements Runnable {
+        String line;
+        ExecutorService executorService;
+        static Map<String,Long> pathSize = new ConcurrentHashMap<>();
+
+        public CountTask(String line, ExecutorService executorService) {
+            this.line = line;
+            this.executorService = executorService;
+        }
+
+
+        public void run() {
+            File file = new File(line);
+            if (file.isDirectory()){
+                try {
+                    getSizeInDir(file,executorService);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+            }
+            
+            Map<String,Long> sizeNum = new HashMap<>();
+            for (Map.Entry<String, Long> entry : pathSize.entrySet()) {
+                String key = "A"+(entry.getValue()/1024 + 1);
+                Long size = sizeNum.get(key);
+                if (size==null){
+                    sizeNum.put(key,1L);
+                } else {
+                    sizeNum.put(key,sizeNum.get(size)+1);
+                }
+            }
+
+            Map<String, Long> sortNumMap = sortMapByValues(sizeNum);
+            PrintWriter printWriter = null;
+            try {
+                File outFile = new File("/tmp/output.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream(outFile);
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                printWriter = new PrintWriter(bufferedOutputStream);
+                for (Map.Entry<String, Long> stringLongEntry : sortNumMap.entrySet()) {
+                    printWriter.println(stringLongEntry.getKey()+" "+stringLongEntry.getValue());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                if (printWriter != null){
+                    printWriter.close();
+                }
+            }
+
+        }
+
+        public static <K extends Comparable, V extends Comparable> Map<K, V> sortMapByValues(Map<K, V> aMap) {
+            HashMap<K, V> finalOut = new LinkedHashMap<>();
+            aMap.entrySet()
+                    .stream()
+                    .sorted((p1, p2) -> p2.getValue().compareTo(p1.getValue()))
+                    .collect(Collectors.toList()).forEach(ele -> finalOut.put(ele.getKey(), ele.getValue()));
+            return finalOut;
+        }
+
+        private long getSizeInDir(File file, ExecutorService executorService) throws InterruptedException, ExecutionException, TimeoutException {
+            if (file.isFile()){
+                return file.length();
+            }
+            Long size = pathSize.get(file.getAbsolutePath());
+            if (size == null) {
+                pathSize.put(file.getAbsolutePath(),0L);
+            }
+            long total = 0;
+            final File[] children = file.listFiles();
+
+            if (children != null) {
+                final List<Future<Long>> partialTotalFutures = new ArrayList<Future<Long>>();
+                for (final File child : children) {
+                    partialTotalFutures.add(executorService.submit(new Callable<Long>() {
+                        public Long call() throws InterruptedException,
+                                ExecutionException, TimeoutException {
+                            return getSizeInDir(child,executorService);
+                        }
+                    }));
+                }
+
+                for (final Future<Long> partialTotalFuture : partialTotalFutures)
+                    total += partialTotalFuture.get(100, TimeUnit.SECONDS);
+
+            }
+            pathSize.put(file.getAbsolutePath(),pathSize.get(file.getAbsolutePath())+total);
+
+            return total;
+        }
+    }
+}

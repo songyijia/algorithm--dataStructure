@@ -15,7 +15,7 @@ public class Number2Char {
     }
 
     private static int process(char[] str, int i) {
-        if (str[i]=='1'){
+        if (i ==str.length){
             return 1;
         }
         // i到终止位置
@@ -41,4 +41,41 @@ public class Number2Char {
         return process(str,i+1);
     }
 
+    public static int dpNumber2Char(String str){
+        if (str.length()==0){
+            return 0;
+        }
+        char[] chars = str.toCharArray();
+
+        return dpWay(chars,chars.length);
+    }
+
+    private static int dpWay(char[] chars, int N) {
+        int[] dp = new int[chars.length+1];
+        dp[N] = 1;
+        for (int i = N-1; i >= 0 ; i--) {
+            if (chars[i]=='0'){
+                dp[i] = 0;
+            }
+            if (chars[i] == '1'){
+                dp[i] = dp[i+1];
+                if (i+1 < chars.length){
+                    dp[i]+=dp[i+2];
+                }
+            }
+            if (chars[i]=='2'){
+                dp[i] = dp[i+1];
+                if (i+1 <chars.length &&(chars[i] >= '0' && chars[i] <= '6')){
+                    dp[i]+=dp[i+2];
+                }
+            }
+        }
+        return dp[0];
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println(number2Char("11111"));
+        System.out.println(dpNumber2Char("11111"));
+    }
 }

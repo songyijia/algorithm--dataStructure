@@ -14,7 +14,7 @@ public class GetMaxCard {
         if (arr == null || arr.length == 0){
             return 0;
         }
-        return Math.max(f(arr,0,arr.length),s(arr,0,arr.length-1));
+        return Math.max(f(arr,0,arr.length-1),s(arr,0,arr.length-1));
     }
 
     //后手拿牌
@@ -34,9 +34,37 @@ public class GetMaxCard {
                 arr[j]+s(arr,i,j-1));
     }
 
+    public static int win2(int[] arr){
+        if (arr == null || arr.length == 0){
+            return 0;
+        }
+        int N = arr.length;
+        int[][] f = new int[N][N];
+        int[][] s = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            f[i][i] = arr[i];
+        }
+        //s[i][i]=0;
+        //完成两个正方形的数字填写
+        for (int i = 1; i < N; i++) {
+            int L = 0,R = i;
+            while (L < N && R <N){
+                f[L][R] = Math.max(arr[L]+s[L+1][R],arr[R]+s[L][R-1]);
+                s[L][R] = Math.min(f[L+1][R],f[L][R-1]);
+                L++;
+                R++;
+            }
+
+        }
+        return Math.max(f[0][N-1],s[0][N-1]);
+
+    }
+
     public static void main(String[] args) {
         int[] arr = {4,7,9,5};
         System.out.println(f(arr,0,3));
         System.out.println(s(arr,0,3));
+        System.out.println(win1(arr));
+        System.out.println(win2(arr));
     }
 }
