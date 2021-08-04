@@ -5,6 +5,7 @@ import java.util.Stack;
 public class HuiWenList {
     /**
      * 判断是否是回文链表
+     * 利用栈将链表倒叙后进行比较
      * @param head
      * @return
      */
@@ -25,6 +26,12 @@ public class HuiWenList {
     }
 
     //need n/2 extra space
+
+    /**
+     * 利用快慢指针原理，找到中点，节省一半空间
+     * @param head
+     * @return
+     */
     public static boolean isHuiWenList2(FastSlow.Node head){
         if (head == null || head.next == null){
             return true;

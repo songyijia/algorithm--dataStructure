@@ -25,6 +25,7 @@ public class CoffeeBei {
         int wash = Math.max(washLine,drinks[index])+a;
         int next1 = process(drinks, a, b, index + 1, wash);
         int p1 = Math.max(wash, next1);
+        //不用咖啡机洗
         int dry = drinks[index] + b;
         int next2 = process(drinks, a, b, index + 1, washLine);
         int p2 = Math.max(dry, next2);
@@ -63,9 +64,22 @@ public class CoffeeBei {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,1,2,4,5,6,6,7,7,12,12,15};
+        int[] arr = {1,1,2,4,5,6,7,7,9};
         int a = 3,b=10;
         System.out.println(process(arr,a,b,0,0));
         System.out.println(dp(arr,a,b));
+        /**
+         *      0   1   2   3   4   6   7   8   9   10   11  12  13
+         * 1
+         * 1
+         * 2
+         * 4
+         * 5
+         * 6
+         * 7
+         * 7    12
+         * 9    12   12   12   12   12   12   12    13    14  15  16
+         *
+         */
     }
 }

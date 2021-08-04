@@ -2,6 +2,9 @@ package algorithm.listtest;
 
 import java.util.ArrayList;
 
+/**
+ * 用快慢两个指针遍历链表，并按要求返回对应的节点
+ */
 public class FastSlow {
     public static class Node{
         int value;

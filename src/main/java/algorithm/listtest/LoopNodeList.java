@@ -7,6 +7,12 @@ package algorithm.listtest;
 public class LoopNodeList {
 
     //找到链表第一个入环节点，如果无环，返回null,有环返回第一个入环节点
+
+    /**
+     * 快指针和慢指针在环中某处相遇后，快指针再从头出发，步长为1，两指针再次相遇时为首个入环点。
+     * @param head
+     * @return
+     */
     public static CopyList.Node getLoopNode(CopyList.Node head){
         if (head == null || head.next == null){
             return null;

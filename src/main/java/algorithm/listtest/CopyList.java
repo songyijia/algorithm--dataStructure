@@ -15,6 +15,11 @@ public class CopyList {
         }
     }
 
+    /**
+     * 笨办法：将源链表存下来，再克隆
+     * @param head
+     * @return
+     */
     public static Node copyListWithRand1(Node head){
         HashMap<Node,Node> map = new HashMap<>();
         Node cur = head;
@@ -31,6 +36,12 @@ public class CopyList {
         return map.get(head);
     }
 
+    /** 不用容器去存节点
+     *  ①--》②---》③
+     *  ①--》①--》②---》②---》③---》③
+     * @param head
+     * @return
+     */
     public static Node copyListWithRand2(Node head){
         Node cur = head;
         while (cur != null){

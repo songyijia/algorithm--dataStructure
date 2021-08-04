@@ -94,9 +94,9 @@ public class ParitionList {
             et = et == null ? lt:et;//谁去连大于区域的头
         }
         if (et!=null){
-            et.next = lh;
+            et.next = bh;
         }
-        return lh != null ? lh : (eh != null ? eh:lh);
+        return lh != null ? lh : (eh != null ? eh:bh);
     }
     public static void main(String[] args) {
         FastSlow.Node node1 = new FastSlow.Node(4);

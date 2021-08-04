@@ -70,7 +70,7 @@ package algorithm.recursive;
         }
         int ways = 0;
         for (int zhang = 0; zhang*arr[index]<=rest; zhang++) {
-            ways+=process(arr,index+1,rest-zhang*arr[index]);
+            ways+=process2(arr,index+1,rest-zhang*arr[index],dp);
         }
         dp[index][rest] = ways;
         return ways;
