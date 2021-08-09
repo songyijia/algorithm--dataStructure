@@ -53,6 +53,22 @@ public class MergeSort {
         }
     }
 
+    /**
+     * 5,4,3,6,7,1,2,7,6,8
+     * left=0 right=9 mid=4
+     * 5,4,3,6,7                                                    1,2,7,6,8
+     * left=0 right=4 mid=2                                         left=5 right=9 mid=7
+     * 5,4,3                            6,7
+     * left=0 right=2 mid=1             left=3 right=4 mid=3
+     * 5,4                          3
+     * left=0 right=1 mid=0
+     *
+     *              左右分区合并。。。。
+     * @param arr
+     * @param left
+     * @param mid
+     * @param right
+     */
     private static void merge(int[] arr, int left, int mid, int right) {
         int[] help = new int[right-left+1];
         int i=0;int l = left; int r = mid+1;
