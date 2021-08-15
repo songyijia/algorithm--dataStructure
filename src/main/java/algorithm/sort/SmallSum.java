@@ -14,15 +14,15 @@ public class SmallSum {
     public static void main(String[] args) {
         int[] arr = {5,4,3,6,7,1,2,7,6,8};
         /**   5,4,3,6,7  | 1,2,7,6,8
-         *    4,5 |3,6,7
-         *     3,4,5,6,7
-         *     sum=4*2+5*2
+         *    4,5 |3,6,7     1，2 | 7，6，8
+         *
+         *     sum=4*2+5*2 + 1*3+2*3
          */
-//        int smallSum = process(arr,0,arr.length-1);
-//        System.out.println("smallSum : "+smallSum);
-//        for (int i : arr) {
-//            System.out.print(i+"    ");
-//        }
+        int smallSum = process(arr,0,arr.length-1);
+        System.out.println("smallSum : "+smallSum);
+        for (int i : arr) {
+            System.out.print(i+"    ");
+        }
         System.out.println();
         int descSortSum = descSortPair(arr,0,arr.length-1);
         System.out.println("descSortSum : "+descSortSum);
@@ -104,7 +104,7 @@ public class SmallSum {
             if (arr[l]<arr[r]){
                 //只有左边比右边小，左指针才增加
                 temp = arr[l++];
-                res+=temp*(right-r+1);
+                res+=temp*(right-r+1); //计算比右边小的数的小和！！！
             } else {
                 temp = arr[r++];
             }
@@ -117,9 +117,7 @@ public class SmallSum {
         while (r<=right){
             help[i++] = arr[r++];
         }
-        //将help数组重写回原数组
-//        arr = help;  这样传不过去
-        //注意这里的复制是归并的
+
         for (int j = 0; j < help.length; j++) {
             arr[left+j]= help[j];
         }

@@ -61,7 +61,7 @@ public class HeapSort {
     }
 
     /**
-     * 堆结构
+     * 堆结构 大根堆
      */
     static class MyHeap{
         int[] heap;
@@ -96,6 +96,13 @@ public class HeapSort {
             return ans;
         }
 
+        /**
+         * 从index到heapSize 的范围堆化：index与孩子比较小就交换
+         * 堆弹出后进行堆化
+         * @param arr
+         * @param index
+         * @param heapSize
+         */
         private void heapify(int[] arr, int index, int heapSize) {
             int left = index*2+1;
             while (left < heapSize){
@@ -113,6 +120,11 @@ public class HeapSort {
             }
         }
 
+        /**
+         * 堆插入：从堆底往上比较，下面大则交换
+         * @param arr
+         * @param index
+         */
         private void heapInsert(int[] arr, int index) {
             while (arr[index]>arr[(index-1)/2]){
                 swap(arr,index,(index-1)/2);

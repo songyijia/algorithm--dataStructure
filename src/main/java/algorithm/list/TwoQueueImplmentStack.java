@@ -34,12 +34,6 @@ public class TwoQueueImplmentStack {
         }
     }
 
-    private void popToPush() {
-        while (helpQueue.size()>0){
-            queue.add(helpQueue.remove());
-        }
-    }
-
 
     public static void main(String[] args) {
         TwoQueueImplmentStack stack = new TwoQueueImplmentStack();

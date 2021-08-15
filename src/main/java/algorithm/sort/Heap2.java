@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-/**
+/**【重点掌握】
+ * 自定义业务堆，存放业务对象，并保持堆结构
  * 包含比较器，特殊对象值变化后，自动更新堆
  */
 public class Heap2 {
+    /**
+     * 自己实现的业务小根堆，排序规则依靠比较器。
+     * @param <T>
+     */
     static class MyHeap<T>{
         private ArrayList<T> heap;
+        // Java 的对象全都只能通过引用操作 上下容器里都存的引用
         private HashMap<T,Integer> indexMap;
         private int heapSize;
         private Comparator<? super T> comparator;
@@ -110,7 +116,7 @@ public class Heap2 {
 
     public static void main(String[] args) {
         Student s1 = new Student(1, 22, 111);
-        Student s2 = new Student(1, 24, 222);
+        Student s2 = new Student(3, 24, 222);
         Student s3 = new Student(5, 26, 44);
         MyHeap heap2 = new MyHeap(new Comparator<Student>() {
             @Override
