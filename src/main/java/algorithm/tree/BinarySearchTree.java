@@ -6,6 +6,8 @@ package algorithm.tree;
  *      左边子树是BST的最大节点，或右边是BST的最大节点。
  * 2.跟x有关：
  *      左边子树是BST，且右边是BST。且左边的Max < X,右边的 Min> X
+ *
+ *  【二叉搜索树：左子树小于根，右子树大于根】
  */
 public class BinarySearchTree {
     static class Info{
@@ -22,6 +24,9 @@ public class BinarySearchTree {
         }
     }
 
+    public static int getBST(RecuriseTravelBT.Node head){
+        return process(head).maxSubBSTSize;
+    }
     public static Info process(RecuriseTravelBT.Node head){
         if (head == null){
             return null;
@@ -36,14 +41,14 @@ public class BinarySearchTree {
             max = Math.max(max,leftInfo.max);
             maxSubBSTSize = Math.max(maxSubBSTSize,leftInfo.maxSubBSTSize);
         }
-        if (leftInfo != null){
-            min = Math.min(min,leftInfo.min);
-            max = Math.max(max,leftInfo.max);
-            maxSubBSTSize = Math.max(maxSubBSTSize,leftInfo.maxSubBSTSize);
+        if (rightInfo != null){
+            min = Math.min(min,rightInfo.min);
+            max = Math.max(max,rightInfo.max);
+            maxSubBSTSize = Math.max(maxSubBSTSize,rightInfo.maxSubBSTSize);
         }
         boolean isAllBST = false;
         if ((leftInfo == null ? true : (leftInfo.isAllBST && leftInfo.max < (int)head.value
-        && (rightInfo == null ? true : (rightInfo.isAllBST && rightInfo.min < (int)head.value))))){
+        && (rightInfo == null ? true : (rightInfo.isAllBST && rightInfo.min > (int)head.value))))){
             isAllBST = true;
             maxSubBSTSize = (leftInfo == null ? 0 : leftInfo.maxSubBSTSize)
                     + (rightInfo == null ? 0 : rightInfo.maxSubBSTSize) + 1;
@@ -51,5 +56,14 @@ public class BinarySearchTree {
         return new Info(maxSubBSTSize,isAllBST,max,min);
 
     }
-
+    public static void main(String[] args) {
+        RecuriseTravelBT.Node node1 = new RecuriseTravelBT.Node(1);
+        RecuriseTravelBT.Node node2 = new RecuriseTravelBT.Node(2);
+        RecuriseTravelBT.Node node3 = new RecuriseTravelBT.Node(3);
+        RecuriseTravelBT.Node node4 = new RecuriseTravelBT.Node(4);
+        RecuriseTravelBT.Node node5 = new RecuriseTravelBT.Node(5);
+        node4.left = node2;node4.right = node5;
+        node2.left = node1;node2.right = node3;
+        System.out.println(getBST(node2));
+    }
 }

@@ -1,9 +1,9 @@
 package algorithm.sort;
 
-import com.sun.deploy.util.StringUtils;
 
 /**
- * 前缀树
+ * 前缀树：一种数据结构，通过pass,end两个计数器及一个指针来存储元素，
+ * 占最小的空间，表示最多的字符串
  */
 public class Trie {
     static class Node{

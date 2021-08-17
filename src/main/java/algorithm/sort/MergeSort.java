@@ -2,6 +2,7 @@ package algorithm.sort;
 
 /**
  * 归并排序，每个部分排序后，将结果合并
+ * 将原问题拆分为若干子问题，将子问题的解合并后成为原问题的解。
  */
 public class MergeSort {
     public static void main(String[] args) {

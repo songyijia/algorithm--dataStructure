@@ -1,23 +1,35 @@
 package algorithm.sort;
 
 /**
- * 分区问题
+ * 快速排序
+ * 归并排序，简单来说就是先将数组不断细分成最小的单位，然后每个单位分别排序，排序完毕后合并，重复以上过程最后就可以得到排序结果。
+
+ 快速排序，简单来说就是先选定一个基准元素，然后以该基准元素划分数组，再在被划分的部分重复以上过程，最后可以得到排序结果。
+
+ 两者都是用分治法的思想，不过最后归并排序的合并操作比快速排序的要繁琐。
  */
 public class Partition {
     public static void main(String[] args) {
-        int[] arr = {5,4,5,6,7,1,2,7,6,8};
+        int[] arr = {8,4,3,6,5,1,2,7,6,5};
 //        System.out.println("lessEqual="+partition(arr,0,arr.length-1));
 
 //        int[] partition = getPartitionFlag(arr,0,arr.length-1);
 //        System.out.println("["+partition[0]+","+partition[1]+"]");
-//        quickSort1(arr);
+        quickSort1(arr);
 //        quickSort2(arr);
-        quickSort3(arr);
+//        quickSort3(arr);
         for (int i : arr) {
             System.out.print(i+"    ");
         }
     }
 
+    /**
+     * 分区函数将原数组按<=最右边元素进行分区，并返回分区的下标。
+     * @param arr
+     * @param left
+     * @param right
+     * @return
+     */
     public static int partition(int[] arr,int left,int right){
         if (left>right){
             return left;
@@ -61,13 +73,14 @@ public class Partition {
             if (arr[index] == num){
                 index++;
             } else if (arr[index]<num){
-                //比num小，将当前元素放入less区域，修改两边指针
+                //比num小，将当前元素放入less区域，修改比较指针和less指针
                 swap(arr,index++,++less);
             } else if (arr[index]>num){
                 //比num大，当前位置不动，放入more区域，只改more指针
                 swap(arr,index,--more);
             }
         }
+        //最后more指针在>num的下标那，与目标元素交换后，使more后面的都是>num的，而此时more指针为=num的结尾
         swap(arr,more,right);
         return new int[]{less+1,more};
     }
@@ -84,7 +97,7 @@ public class Partition {
         }
         process1(arr,0,arr.length-1);
     }
-
+    //通过分区中点进行归并
     private static void process1(int[] arr, int L, int R) {
         if (L>=R){
             return;
@@ -99,7 +112,7 @@ public class Partition {
         }
         process2(arr,0,arr.length-1);
     }
-
+    //通过荷兰国旗返回的<=、>的两个下标去归并
     private static void process2(int[] arr, int L, int R) {
         if (L>=R){
             return;
@@ -115,13 +128,14 @@ public class Partition {
         process3(arr,0,arr.length-1);
     }
 
+    //在2的基础上，每次比较时，用中间位置的元素进行比较，使性能更好
     private static void process3(int[] arr, int L, int R) {
         if (L>=R){
             return;
         }
         swap(arr,L+(int)(Math.random()*(R-L+1)),R);
         int[] M = getPartitionFlag(arr,L,R);
-        process2(arr, L, M[0]-1);
-        process2(arr, M[1]+1, R);
+        process3(arr, L, M[0]-1);
+        process3(arr, M[1]+1, R);
     }
 }

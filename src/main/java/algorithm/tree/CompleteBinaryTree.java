@@ -2,10 +2,15 @@ package algorithm.tree;
 
 import java.util.LinkedList;
 
+/**
+ * 【完全二叉树：设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，
+    第 h 层所有的结点都连续集中在最左边】
+    【满二叉树：深度为k且有2^k-1个结点的二叉树称为满二叉树】
+ */
 public class CompleteBinaryTree {
     /**
      * 判断是否为完全二叉树
-     * 宽度优先遍历
+     * 【宽度优先遍历】
      * 1.有右节点，同时有左节点
      * 2.若节点左右孩子不双全，那后续遍历的节点均为叶子节点
      * @param head

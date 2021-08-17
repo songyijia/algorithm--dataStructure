@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 
 /**
  * 快要排好序的数组里面，相邻元素移动少于k，选择合适策略对数组排序
+ * 在固定的排序空间内，对整个数组进行排序===》小根堆！！
  */
 public class SortArrDistanceLessK {
     public static void sortedArrDistanceLessK(int[] arr,int k){
