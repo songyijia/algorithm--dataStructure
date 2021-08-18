@@ -36,4 +36,15 @@ public class FullBinaryTree {
             this.nodes = nodes;
         }
     }
+
+    public static void main(String[] args) {
+        RecuriseTravelBT.Node node1 = new RecuriseTravelBT.Node(1);
+        RecuriseTravelBT.Node node2 = new RecuriseTravelBT.Node(2);
+        RecuriseTravelBT.Node node3 = new RecuriseTravelBT.Node(3);
+        RecuriseTravelBT.Node node4 = new RecuriseTravelBT.Node(4);
+        RecuriseTravelBT.Node node5 = new RecuriseTravelBT.Node(5);
+        node4.left = node2;node4.right = node5;
+        node2.left = node1;node2.right = node3;
+        System.out.println(isFullBT(node4));
+    }
 }

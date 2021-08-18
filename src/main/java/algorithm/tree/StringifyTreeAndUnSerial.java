@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 序列化及反序列化树
+ * 序列化及反序列化树：序列化时需将null填入树中，将树看作满二叉树。
  */
 public class StringifyTreeAndUnSerial {
     public static Queue<Object> preSerial(RecuriseTravelBT.Node head){
@@ -22,7 +22,7 @@ public class StringifyTreeAndUnSerial {
             pres(head.right,ans);
         }
     }
-
+    //根据先序队列反序列化回树，并返回根节点
     public static RecuriseTravelBT.Node buildByPreQueue(Queue<Object> queue){
         if (queue == null || queue.size() == 0){
             return null;
@@ -41,6 +41,7 @@ public class StringifyTreeAndUnSerial {
         return head;
     }
 
+    //宽度优先级序列化树
     public static Queue<Object> levelSerial(RecuriseTravelBT.Node head){
         Queue<Object> ans = new LinkedList<>();
         if (head == null){
@@ -68,6 +69,7 @@ public class StringifyTreeAndUnSerial {
         return ans;
     }
 
+    //宽度优先级反序列化
     public static RecuriseTravelBT.Node levelUnSerial(Queue<Object> list){
         RecuriseTravelBT.Node head = generateNode(list.poll());
         Queue<RecuriseTravelBT.Node> queue = new LinkedList<>();
