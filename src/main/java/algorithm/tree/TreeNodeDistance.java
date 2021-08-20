@@ -31,4 +31,20 @@ public class TreeNodeDistance {
                 leftInfo.height+rightInfo.height+1);
         return new Info(maxDistance,height);
     }
+
+    public static void main(String[] args) {
+        RecuriseTravelBT.Node node1 = new RecuriseTravelBT.Node(1);
+        RecuriseTravelBT.Node node2 = new RecuriseTravelBT.Node(2);
+        RecuriseTravelBT.Node node3 = new RecuriseTravelBT.Node(3);
+        RecuriseTravelBT.Node node4 = new RecuriseTravelBT.Node(4);
+        RecuriseTravelBT.Node node5 = new RecuriseTravelBT.Node(5);
+        RecuriseTravelBT.Node node6 = new RecuriseTravelBT.Node(6);
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
+        node2.right = node5;
+        node3.right = node6;
+        System.out.println(maxDistance(node1));
+
+    }
 }

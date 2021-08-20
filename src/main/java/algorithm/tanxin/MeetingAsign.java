@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * 贪心算法：会议安排问题
+ * 贪心算法：会议安排问题 求尽可能多的安排会议
  *
  */
 public class MeetingAsign {
@@ -26,12 +26,11 @@ public class MeetingAsign {
     }
 
     /**
-     * 目前来到timeLine的时间点，已经安排了done多的会议，剩下的会议programs可以自由安排
-     * 返回能安排的最多会议数量
-     * @param programs
-     * @param done
-     * @param timeLine
-     * @return
+     *
+     * @param programs  剩下的会议programs可以自由安排
+     * @param done      已经安排了done多的会议
+     * @param timeLine  目前来到timeLine的时间点
+     * @return          返回能安排的最多会议数量
      */
     public static int process(Program[] programs,int done,int timeLine){
         if (programs.length == 0){
@@ -79,5 +78,16 @@ public class MeetingAsign {
         public int compare(Program o1, Program o2) {
             return o1.end-o2.end;
         }
+    }
+
+    public static void main(String[] args) {
+        Program[] programs = new Program[5];
+        programs[0]=  new Program(0,3);
+        programs[1]=  new Program(3,5);
+        programs[2]=  new Program(2,4);
+        programs[3]=  new Program(5,8);
+        programs[4]=  new Program(6,10);
+        System.out.println(bestArrange1(programs));
+        System.out.println(bestArrange2(programs));
     }
 }

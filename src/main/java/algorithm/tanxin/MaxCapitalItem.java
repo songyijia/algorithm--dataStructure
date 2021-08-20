@@ -21,18 +21,21 @@ public class MaxCapitalItem {
         PriorityQueue<Program> minCostQ = new PriorityQueue<>(new MinCostComparator());
         PriorityQueue<Program> maxProfitQ = new PriorityQueue<>(new MaxProComparator());
         for (int i = 0; i < profits.length; i++) {
-            minCostQ.add(new Program(profits[i],Capital[i]));
+            minCostQ.add(new Program(Capital[i],profits[i]));
         }
+        int res = w;
         for (int i = 0; i < k; i++) {
-            while (!minCostQ.isEmpty() && minCostQ.peek().c <=w){
+            while (!minCostQ.isEmpty() && minCostQ.peek().c <=res){
                 maxProfitQ.add(minCostQ.poll());
             }
             if (maxProfitQ.isEmpty()){
                 return w;
             }
-            w+=maxProfitQ.poll().p;
+            Program program = maxProfitQ.poll();
+            res-=program.c;
+            res+=program.p;
         }
-        return w;
+        return res;
     }
 
     private static class MinCostComparator implements Comparator<Program> {
@@ -45,7 +48,13 @@ public class MaxCapitalItem {
     private static class MaxProComparator implements Comparator<Program>{
         @Override
         public int compare(Program o1, Program o2) {
-            return o2.p-o2.p;
+            return o2.p-o1.p;
         }
+    }
+
+    public static void main(String[] args) {
+        int[] profits = {2,3,5,8} ,capital = {4,2,6,3};
+        int k = 1,w=10;
+        System.out.println(findMaxCapital(k,w,profits,capital));
     }
 }

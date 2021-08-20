@@ -26,29 +26,34 @@ public class MinLight {
     private static int process(char[] str, int index
             , HashSet<Object> lights) {
         if (index == str.length){//结束的时候
-            for (int i = 0; i < str.length; i++) {
+            for (int i = 0; i < str.length; i++) {  //验证目前能否将所有街道照亮
                 if (str[i] != 'X') { //当前位置是.
                     if (!lights.contains(i - 1) && !lights.contains(i) && !lights.contains(i + 1)) {
-                        return Integer.MAX_VALUE;
+                        return Integer.MAX_VALUE; //返回无效解
                     }
                 }
             }
-            return lights.size();
+            return lights.size();//返回有效解
         } else {
             // index 位置不放灯的情况
             int no = process(str,index+1,lights);
             int yes = Integer.MAX_VALUE;
-            // index位置可以放灯
+            // index位置是. 放灯
             if (str[index] == '.'){
                 lights.add(index);
                 yes = process(str,index+1,lights);
-                lights.remove(index); //恢复现场
+                lights.remove(index); //共用老的结构，算完后删掉，恢复现场
             }
             return Math.min(no,yes);
         }
 
     }
 
+    /**
+     *  贪心解法在于题，每到题解法不同，此题根据题意一次遍历解决。
+     * @param road
+     * @return
+     */
     public static int minLight2(String road){
         char[] str = road.toCharArray();
         int index= 0 ,light = 0;
@@ -69,5 +74,12 @@ public class MinLight {
             }
         }
         return light;
+    }
+
+    public static void main(String[] args) {
+//        String road = "..X..XX.....X.";
+        String road = "....";
+        System.out.println(minLight1(road));
+        System.out.println(minLight2(road));
     }
 }

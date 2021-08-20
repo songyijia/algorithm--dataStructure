@@ -1,5 +1,6 @@
 package algorithm.tanxin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -7,7 +8,7 @@ import java.util.Stack;
 /**
  * 并查集
  * 1.一开始所有样本都看作在单独集合
- * 设计集合，使查询元素在集合中和并集的效率较低
+ * 设计集合，使【查询元素】在集合中【和并集】的效率较低
  *
  * P1(a，b,c) P2(x,y,z) 三个条件有1对应则为同一人，就连一块儿
  */
@@ -21,15 +22,18 @@ public class UnionFind {
     }
 
     public static class UnionSet<V>{
-        HashMap<V,Node<V>> nodes;
-        HashMap<Node<V>,Node<V>> parents;
-        //只有一个点，是代表点，才有大小
-        HashMap<Node<V>,Integer> sizeMap;
+        //每个值对应的节点
+        HashMap<V,Node<V>> nodes = new HashMap<>();
+        //节点上面的点为代表点
+        HashMap<Node<V>,Node<V>> parents = new HashMap<>();
+        //代表点，才有大小，指集合有多少个元素。
+        HashMap<Node<V>,Integer> sizeMap = new HashMap<>();
 
         public UnionSet(List<V> values) {
             for (V value : values) {
                 Node<V> node = new Node<>(value);
                 nodes.put(value,node);
+                //一开始的节点的代表点就是它自身
                 parents.put(node,node);
                 sizeMap.put(node,1);
             }
@@ -59,7 +63,7 @@ public class UnionFind {
             }
             return findFather(nodes.get(a)) == findFather(nodes.get(b));
         }
-
+        //将小集合的头节点，直接连到大集合的头节点上
         public void union(V a,V b){
             if (!nodes.containsKey(a)||!nodes.containsKey(b)){
                 return;
@@ -125,5 +129,16 @@ public class UnionFind {
 
         }
         return userUnionSet.getSetNum();
+    }
+
+    public static void main(String[] args) {
+        User user1 = new User("a", "b", "c");
+        User user2 = new User("1", "b", "!");
+        User user3 = new User("@", "3", "c");
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        System.out.println(mergeUsers(users));
     }
 }
