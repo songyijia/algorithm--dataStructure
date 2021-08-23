@@ -40,6 +40,12 @@ public class Dijkstra {
         return distanceMap;
     }
 
+    /**
+     * 从距离表中选取，没有选过且距离最短的节点。从最小的边的节点出发！
+     * @param distanceMap
+     * @param selectedNodes
+     * @return
+     */
     private static Node getMinDistanceAndUnselectedNode(HashMap<Node, Integer> distanceMap, HashSet<Node> selectedNodes) {
         Node minNode = null;
         int minDistance = Integer.MAX_VALUE;
@@ -65,7 +71,7 @@ public class Dijkstra {
     }
 
     /**
-     * 改进后的dijkstra算法
+     * 改进后的dijkstra算法，利用小根堆[每次从最小的边的节点开始找]
      * 从from 出发，所有from 能到达的节点，生成到达每个节点的最小路径并返回
      */
     public static HashMap<Node,Integer> dijkstra2(Node head,int size){
@@ -165,4 +171,20 @@ public class Dijkstra {
 
         }
     }
+
+    public static void main(String[] args) {
+        Integer[][] matrix = new Integer[7][3];
+        matrix[0] = new Integer[]{1,1,3};
+        matrix[1] = new Integer[]{4,1,2};
+        matrix[2] = new Integer[]{3,1,4};
+        matrix[3] = new Integer[]{2,2,5};
+        matrix[4] = new Integer[]{7,3,5};
+        matrix[5] = new Integer[]{9,4,5};
+        matrix[6] = new Integer[]{10,5,6};
+        Graph graph = GraphGenerator.createGraph(matrix);
+        HashMap<Node, Integer> result = dijkstral(graph.nodes.get(1));
+        HashMap<Node, Integer> result2 = dijkstra2(graph.nodes.get(1),6);
+        System.out.println("z");
+    }
+
 }

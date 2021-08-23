@@ -35,4 +35,17 @@ public class TopologySort {
         return result;
     }
 
+    public static void main(String[] args) {
+        Integer[][] matrix = new Integer[7][3];
+        matrix[0] = new Integer[]{1,1,3};
+        matrix[1] = new Integer[]{4,1,2};
+        matrix[2] = new Integer[]{3,1,4};
+        matrix[3] = new Integer[]{2,2,5};
+        matrix[4] = new Integer[]{7,3,5};
+        matrix[5] = new Integer[]{9,4,5};
+        matrix[6] = new Integer[]{10,5,6};
+        Graph graph = GraphGenerator.createGraph(matrix);
+        List<Node> nodes = sortedTopology(graph);
+        System.out.println(nodes);
+    }
 }
