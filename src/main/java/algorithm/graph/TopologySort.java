@@ -4,10 +4,14 @@ import java.util.*;
 
 /**
  * 拓扑排序
+ * 0.将所有点的入度放入map中
+ * 1.找第一个入度为0的点，作为起始点
+ * 2.从起始点向下遍历，遍历到的节点入度减一（像当于cur指到这个点）
+ * 3.判断如果有节点的入度被减到0，就将入度为0的点，放入遍历队列，继续步骤1的操作
  */
 public class TopologySort {
 
-    //directed graph and no loop
+    //directed graph and no loop 有向无环图
     public static List<Node> sortedTopology(Graph graph){
         //key:某一个node
         // value: 剩余入度

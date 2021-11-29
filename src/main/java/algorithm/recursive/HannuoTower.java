@@ -11,6 +11,13 @@ public class HannuoTower {
         }
     }
 
+    /**
+     * 要想把n移过去，得先把n-1上面的移走。
+     * @param n
+     * @param from
+     * @param to
+     * @param other
+     */
     private static void func(int n, String from, String to, String other) {
         if (n ==1){
             System.out.println("move 1 from "+from+" to "+to);

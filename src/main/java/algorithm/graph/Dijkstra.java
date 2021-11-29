@@ -8,6 +8,7 @@ import java.util.Map;
 public class Dijkstra {
     /**
      * 从某一点，到其它点最小距离
+     * 相当于完全遍历所有的点，所有的边
      * @param from
      * @return
      */
@@ -22,7 +23,7 @@ public class Dijkstra {
         distanceMap.put(from,0);
         //已经求过距离的节点，存在selectNodes中，以后再也不碰
         HashSet<Node> selectedNodes = new HashSet<>();
-
+        //从未选节点中找最小边的节点
         Node minNode = getMinDistanceAndUnselectedNode(distanceMap,selectedNodes);
         while (minNode != null){
             Integer distance = distanceMap.get(minNode);
@@ -79,6 +80,7 @@ public class Dijkstra {
         nodeHeap.addOrUpdateOrIgnore(head,0);
         HashMap<Node,Integer> result = new HashMap<>();
         while (!nodeHeap.isEmpty()){
+            //将所有节点遍历完。
             NodeRecord nodeRecord = nodeHeap.pop();
             Node cur = nodeRecord.node;
             int distance = nodeRecord.distance;
@@ -104,7 +106,7 @@ public class Dijkstra {
             distanceMap = new HashMap<>();
             size = 0;
         }
-
+        //业务：更新到node的距离
         public void addOrUpdateOrIgnore(Node node, int distance) {
             if (inHeap(node)){
                 distanceMap.put(node,Math.min(distanceMap.get(node),distance));
@@ -183,7 +185,7 @@ public class Dijkstra {
         matrix[6] = new Integer[]{10,5,6};
         Graph graph = GraphGenerator.createGraph(matrix);
         HashMap<Node, Integer> result = dijkstral(graph.nodes.get(1));
-        HashMap<Node, Integer> result2 = dijkstra2(graph.nodes.get(1),6);
+        HashMap<Node, Integer> result2 = dijkstra2(graph.nodes.get(1),6);//6 指6个不同的节点
         System.out.println("z");
     }
 

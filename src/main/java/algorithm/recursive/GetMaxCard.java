@@ -17,7 +17,13 @@ public class GetMaxCard {
         return Math.max(f(arr,0,arr.length-1),s(arr,0,arr.length-1));
     }
 
-    //后手拿牌
+    /**
+     * 后手拿牌
+     * @param arr  牌堆
+     * @param i     左指针
+     * @param j     右指针
+     * @return
+     */
     private static int s(int[] arr, int i, int j) {
         if (i == j){
             return 0;

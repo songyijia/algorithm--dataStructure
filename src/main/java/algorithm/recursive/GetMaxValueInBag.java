@@ -24,8 +24,9 @@ public class GetMaxValueInBag {
         if (index == w.length){ //base case 2
             return 0;
         }
-        //有货也有空间
+        //有货也有空间 不要index的货
         int p1 = process(w, v, index + 1, rest);
+        //要index的货
         int p2 = -1;
         int p2Next = process(w, v, index + 1, rest - w[index]);
         if (p2Next !=-1){

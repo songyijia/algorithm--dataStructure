@@ -15,6 +15,13 @@ package algorithm.recursive;
         return process(arr,0,aim);
     }
 
+    /**
+     *
+     * @param arr
+     * @param index 用那种纸币
+     * @param rest
+     * @return
+     */
     private static int process(int[] arr, int index, int rest) {
         if (rest < 0) {
             return 0;
@@ -132,5 +139,6 @@ package algorithm.recursive;
         System.out.println(coinWay(arr,sum));
         System.out.println(way2(arr,sum));
         System.out.println(way3(arr,sum));
+        System.out.println(way4(arr,sum));
     }
 }

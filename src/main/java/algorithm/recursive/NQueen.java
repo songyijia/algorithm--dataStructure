@@ -85,4 +85,8 @@ public class NQueen {
         int limit = n == 32 ? -1:(1<<n)-1;
         return process2(limit,0,0,0);
     }
+
+    public static void main(String[] args) {
+        System.out.println(num1(8));
+    }
 }

@@ -23,7 +23,9 @@ public class CoffeeBei {
         }
         //wash是我当前的咖啡杯洗完时间
         int wash = Math.max(washLine,drinks[index])+a;
+        //index用咖啡机洗，剩下的杯子什么时候洗完
         int next1 = process(drinks, a, b, index + 1, wash);
+        //index用咖啡机洗，这个方案最终什么时候洗完
         int p1 = Math.max(wash, next1);
         //不用咖啡机洗
         int dry = drinks[index] + b;
@@ -60,25 +62,27 @@ public class CoffeeBei {
                 dp[index][washLine] = Math.min(p1,p2);
             }
         }
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < limit + 1; j++) {
+                System.out.print(dp[i][j]+" ");
+            }
+            System.out.println();
+        }
         return dp[0][0];
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,1,2,4,5,6,7,7,9};
-        int a = 3,b=10;
+        int[] arr = {1,1,2,4};
+        int a = 2,b=5;
         System.out.println(process(arr,a,b,0,0));
         System.out.println(dp(arr,a,b));
         /**
-         *      0   1   2   3   4   6   7   8   9   10   11  12  13
+         * limit = 6
+         *      0   1   2   3   4   5   6   7
          * 1
          * 1
-         * 2
-         * 4
-         * 5
-         * 6
-         * 7
-         * 7    12
-         * 9    12   12   12   12   12   12   12    13    14  15  16
+         * 2    6   4
+         * 4    5   5   5   5  6   6   6   6
          *
          */
     }

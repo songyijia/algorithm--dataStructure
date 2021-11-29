@@ -33,9 +33,26 @@ public class ReverseStack {
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        reverse(stack);
+//        reverse(stack);
         while (!stack.isEmpty()) {
             System.out.print(stack.pop()+"  ");
+        }
+    }
+
+    /**
+     * 获取stack最后一个元素：一直递归，将最后一个元素返回，
+     * 将其它元素放回stack中
+     * @param stack
+     * @return
+     */
+    public static Integer getEndest(Stack<Integer> stack){
+        Integer result = stack.pop();
+        if (stack.isEmpty()){
+            return result;
+        } else {
+            Integer last = getEndest(stack);
+            stack.push(result);
+            return last;
         }
     }
 }
