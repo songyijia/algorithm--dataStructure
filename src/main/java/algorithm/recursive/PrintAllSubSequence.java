@@ -5,7 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * 打印字符串所有子序列
+ * 序列：不连续。 子串：连续
+ * 打印字符串所有子序列：将一个串完全展开，如：abc
+ *         要a       不要a
+ *      要b  不要b
+ *   要c 不要c
+ *   abc  ab  ac a  bc b c ''
+ *
  */
 public class PrintAllSubSequence {
 

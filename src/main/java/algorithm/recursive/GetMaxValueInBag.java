@@ -1,5 +1,7 @@
 package algorithm.recursive;
 
+import java.util.Arrays;
+
 /**
  * 背包问题
  */
@@ -29,7 +31,7 @@ public class GetMaxValueInBag {
         //要index的货
         int p2 = -1;
         int p2Next = process(w, v, index + 1, rest - w[index]);
-        if (p2Next !=-1){
+        if (p2Next !=-1){ //说明能装上index的货
             p2 = v[index]+p2Next;
         }
         return Math.max(p1,p2);
@@ -45,14 +47,13 @@ public class GetMaxValueInBag {
         //dp[N][..]=0
         //N行填完了，从N-1行开始填,,?? (依赖index+1) 从二维表中看出要返回的是dp[0][bag]
         for (int index = N-1; index >= 0; index--) {
-            for (int rest = 0; rest <= bag; rest++) {
-                int p1 = dp[index+1][rest];
-                int p2 = -1;
-                int p2Next = dp[index+1][rest-w[index]];
-                if (rest-w[index]>=0){
-                    p2 = v[index] + p2Next;
+            for (int rest = 1; rest <= bag; rest++) {
+                //不要index的货
+                dp[index][rest] = dp[index+1][rest];
+                //当剩余空间够时，要index货的情况
+                if (rest >= w[index]){
+                    dp[index][rest] = Math.max(dp[index][rest],v[index]+dp[index+1][rest-w[index]]);
                 }
-                dp[index][rest]=Math.max(p1,p2);
             }
 
         }

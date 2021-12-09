@@ -95,7 +95,7 @@ public class AliTest {
         public Long call() {
             return count(new File(path),path2Size);
         }
-
+        //统计所有目录及文件大小
         private long count(File path, Map<String, Long> path2Size) {
             //是文件，直接返回文件大小
             if (!path.isDirectory()){
@@ -119,38 +119,6 @@ public class AliTest {
         }
     }
 
-    private static class CountLevelNum implements Runnable {
-        String path;
-        Map<String, Long> path2Size;
-        MyHeap path2Num;
-        CountDownLatch cyclicBarrier;
-        public CountLevelNum(String path, Map<String, Long> path2Size, MyHeap path2Num, CountDownLatch cyclicBarrier) {
-            this.path = path;
-            this.path2Size = path2Size;
-            this.path2Num = path2Num;
-            this.cyclicBarrier = cyclicBarrier;
-        }
-
-        @Override
-        public void run() {
-            Long size = path2Size.get(path);
-            String level = "A"+(size / 1024 +1);
-            Result n = (Result)path2Num.get(level);
-            if (n==null){
-                path2Num.put(level,new Result(level,1));
-            } else {
-                n.num = n.num+1;
-                path2Num.put(level,n);
-            }
-            try {
-                System.out.println(Thread.currentThread().getName()+"执行完毕！");
-                cyclicBarrier.countDown();
-                System.out.println("走你！");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * 一种可进行计算，且随着计算值动态排序的数据结构
@@ -209,13 +177,14 @@ public class AliTest {
             swap(0,end);
             heap.remove(end);
             indexMap.remove(ans);
+//            valueMap.remove() valueMap 没法删！！
             heapify(0,--heapSize);
             return ans;
         }
 
         public void resign(T value){
             Integer valueIndex = indexMap.get(value);
-            heapInsert(valueIndex);
+            heapInsert(valueIndex);//在该索引之上的进行heapInsert操作，该索引之下的进行heapify操作
             heapify(valueIndex,heapSize);
         }
 

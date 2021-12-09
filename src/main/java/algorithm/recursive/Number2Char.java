@@ -1,9 +1,10 @@
 package algorithm.recursive;
 
-/**
- * 从左往右的尝试
- * 规定1和A对应，2和B对应，3和C对应，那么111可以转化为“AAA","KA"和"AK"
- * 给定一个只有数字字符的字符串str,返回有多少种转化结果
+/** facebook原题
+ * 从左往右的尝试，面试中递归一般是四种模型
+ * 【规定1和A对应，2和B对应，3和C对应，那么111可以转化为“AAA","KA"和"AK"
+ * 给定一个只有数字字符的字符串str,返回有多少种转化结果】
+ * 此题根据第一块画多大来尝试。！！
  */
 public class Number2Char {
     public static int number2Char(String str){
@@ -16,9 +17,9 @@ public class Number2Char {
 
     private static int process(char[] str, int i) {
         if (i ==str.length){
-            return 1;
+            return 1; //[0,i-1]形成了一种答案
         }
-        // i到终止位置
+        // 0没有与之转化的字符，上游转化过程导致下游没得转，直接返回错误0，之前的无效
         if (str[i]=='0'){
             return 0;
         }

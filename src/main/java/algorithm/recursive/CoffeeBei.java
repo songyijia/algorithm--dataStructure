@@ -14,7 +14,7 @@ public class CoffeeBei {
      * @param a 洗一杯的时间，固定变量
      * @param b 晾干的时间 固定变量
      * @param index 从index开始求解，前面已经洗干净，index后面都想变干净
-     * @param washLine 洗的机器何时可用
+     * @param washLine 洗的机器何时可用【业务限制】
      * @return
      */
     public static int process(int[] drinks,int a,int b,int index,int washLine){
@@ -76,6 +76,7 @@ public class CoffeeBei {
         int a = 2,b=5;
         System.out.println(process(arr,a,b,0,0));
         System.out.println(dp(arr,a,b));
+        System.out.println((byte)0xFF);
         /**
          * limit = 6
          *      0   1   2   3   4   5   6   7
