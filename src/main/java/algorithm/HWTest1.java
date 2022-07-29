@@ -107,10 +107,11 @@ public class HWTest1 {
             int maxLen = -1;
             int start = 0,end = 0;
             for (int i = 0; i < chars.length; i++) {
-                int len1 = spanAroundCenter(chars,i,i);    //奇数
-                int len2 = spanAroundCenter(chars,i,i+1); //偶数
+                int len1 = spanAroundCenter(chars,i,i);    //奇数      aba
+                int len2 = spanAroundCenter(chars,i,i+1); //偶数 abba
                 int len = Math.max(len1,len2);
                 if (len > maxLen){
+                    //新的子串大，调整子串的上下边界。。。。
                     maxLen = len;
                     if (len2 > len1){
                         start = i-len/2+1;
@@ -124,6 +125,13 @@ public class HWTest1 {
             return str.substring(start+1,end);
         }
 
+        /**
+         * 由中间开始向两边找
+         * @param chars
+         * @param left
+         * @param right
+         * @return
+         */
         private static int spanAroundCenter(char[] chars, int left, int right) {
             int len = 0;
             while (left>=0 && right < chars.length){

@@ -64,6 +64,11 @@ public class BinarySearchTree {
         RecuriseTravelBT.Node node5 = new RecuriseTravelBT.Node(5);
         node4.left = node2;node4.right = node5;
         node2.left = node1;node2.right = node3;
+        /**
+         *       4
+         *     2  5
+         *   1 3
+         */
         System.out.println(getBST(node2));
     }
 }
